@@ -11,7 +11,7 @@ Revision 8.0 - December 12, 2016  - EK1A trx end revision. Setup last hardware c
 Revision 9.0 - January 07, 2017  - EK1A trx last revision. Remove not worked bands ... trx work well on 3.5, 5, 7, 10, 14 MHz (LZ1DPN mod)
 Revision 10.0 - March 13, 2017 	 - scan function
 Revision 11.0 - October 22, 2017 	 - RIT + other - other
-Revision 12.0 - January 22, 2018  - support AD9833 oscillator (VFO for NorCal NC40a/2018), (49-er/2018)
+Revision 12.0 - January 22, 2018  - support AD9833 oscillator (VFO for NorCal NC40a/2018) (49-er/2018)
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -92,7 +92,7 @@ delay(50);
 
   AD9833reset();                                   // Reset AD9833 module after power-up.
   delay(50);
-  AD9833setFrequency(rx, SQUARE);                  // Set the frequency and Sine Wave output
+  AD9833setFrequency((rx-4000000), SQUARE);                  // Set the frequency and Sine Wave output
   
   //  Serial.println("Start VFO ver 11.0");
 
@@ -122,7 +122,7 @@ delay(50);
   PCMSK2 |= (1 << PCINT18) | (1 << PCINT19);
   sei();
   
-    AD9833setFrequency(rx, SQUARE);     // Set AD9833 to frequency and selected wave type.
+    AD9833setFrequency((rx-4000000), SQUARE);     // Set AD9833 to frequency and selected wave type.
     delay(50);
 }
 
@@ -134,7 +134,7 @@ void loop() {
 // freq change 
   if ((rx != rx2) || (RITon == 1)){
 	    showFreq();
-      AD9833setFrequency(rx, SQUARE);     // Set AD9833 to frequency and selected wave type.
+      AD9833setFrequency((rx-4000000), SQUARE);     // Set AD9833 to frequency and selected wave type.
       rx2 = rx;
       }
 
@@ -245,8 +245,8 @@ BTNdecodeON = digitalRead(BTNDEC);
     if(BTNdecodeON == LOW){
          BTNinc = BTNinc + 1;
          
-         if(BTNinc > 7){
-              BTNinc = 2;
+         if(BTNinc > 6){
+              BTNinc = 3;
               }
               
           switch (BTNinc) {
